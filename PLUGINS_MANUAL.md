@@ -552,9 +552,164 @@ Bufferline:
 
 ---
 
-# 8. 기타
+# 8. 코드 폴딩
 
-## 8.1 markdown-preview.nvim
+## 8.1 nvim-ufo
+
+Treesitter 기반의 향상된 코드 폴딩
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `zR` | 모든 폴드 열기 |
+| `zM` | 모든 폴드 닫기 |
+| `zr` | 폴드 레벨 증가 (더 열기) |
+| `zm` | 폴드 레벨 감소 (더 닫기) |
+| `zo` | 현재 폴드 열기 |
+| `zc` | 현재 폴드 닫기 |
+| `za` | 현재 폴드 토글 |
+| `zK` | 접힌 내용 미리보기 |
+
+### 특징
+
+```
+접힌 상태 표시:
+public class UserService { ··· 25 lines ···
+
+- 접힌 줄 수 표시
+- Treesitter 기반으로 정확한 코드 블록 인식
+- 파일 열 때 모든 폴드가 열린 상태로 시작
+```
+
+### 사용 예시
+
+```
+1. zM으로 모든 함수 접기
+2. 작업할 함수에서 zo로 해당 함수만 열기
+3. zK로 접힌 함수 내용 미리보기
+4. zR로 모두 열기
+```
+
+---
+
+# 9. 데이터베이스
+
+## 9.1 vim-dadbod + dadbod-ui
+
+Neovim 내에서 데이터베이스 연결 및 쿼리 실행
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<leader>Db` | Database UI 열기/닫기 |
+| `<leader>Da` | DB 연결 추가 |
+| `<leader>Df` | DB 버퍼 찾기 |
+
+### 화면 구성
+
+```
+┌──────────────────┬─────────────────────────────────────┐
+│ Connections      │  SELECT * FROM users               │
+│ ├─ dev_mysql     │  WHERE created_at > '2024-01-01'   │
+│ │  ├─ users      │  ORDER BY id DESC                  │
+│ │  ├─ orders     │  LIMIT 10;                         │
+│ │  └─ products   │                                     │
+│ └─ prod_postgres ├─────────────────────────────────────┤
+│                  │ id │ name    │ email              │
+│                  │────┼─────────┼────────────────────│
+│                  │  1 │ Kim     │ kim@example.com    │
+└──────────────────┴─────────────────────────────────────┘
+```
+
+### 연결 문자열 형식
+
+```
+MySQL:      mysql://user:password@localhost:3306/dbname
+PostgreSQL: postgresql://user:password@localhost:5432/dbname
+SQLite:     sqlite:./path/to/db.sqlite
+```
+
+### DBUI 내부 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<CR>` | 연결/테이블 열기 |
+| `S` | 쿼리 실행 (SQL 버퍼에서) |
+| `R` | 새로고침 |
+| `d` | 연결 삭제 |
+| `q` | DBUI 닫기 |
+
+### 쿼리 헬퍼
+
+테이블에서 사용 가능한 빠른 쿼리:
+- **Count**: `SELECT COUNT(*) FROM {table}`
+- **List**: `SELECT * FROM {table} LIMIT 100`
+
+---
+
+# 10. REST API
+
+## 10.1 rest.nvim
+
+Neovim 내에서 HTTP 요청 보내기 (Postman 대체)
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<leader>rr` | 현재 요청 실행 |
+| `<leader>rl` | 마지막 요청 다시 실행 |
+
+### 사용법
+
+`.http` 파일을 만들고 요청 작성:
+
+```http
+### 사용자 목록 조회
+GET http://localhost:8080/api/users
+Content-Type: application/json
+
+### 사용자 생성
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "name": "Kim",
+  "email": "kim@example.com"
+}
+
+### 인증이 필요한 요청
+GET http://localhost:8080/api/protected
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### 결과 표시
+
+```
+┌─────────────────────────────────────┐
+│ POST http://localhost:8080/api/users│
+├─────────────────────────────────────┤
+│ Status: 201 Created (45ms)          │
+│                                     │
+│ {                                   │
+│   "id": 1,                          │
+│   "name": "Kim",                    │
+│   "email": "kim@example.com"        │
+│ }                                   │
+└─────────────────────────────────────┘
+```
+
+### 요구사항
+
+- `jq` 설치 필요 (JSON 포맷팅용): `sudo apt install jq`
+
+---
+
+# 11. 기타
+
+## 11.1 markdown-preview.nvim
 
 마크다운 파일을 브라우저에서 실시간 미리보기
 
@@ -576,7 +731,7 @@ Bufferline:
 
 ---
 
-## 8.2 neoscroll.nvim
+## 11.2 neoscroll.nvim
 
 부드러운 스크롤 애니메이션
 
@@ -596,9 +751,9 @@ Bufferline:
 
 ---
 
-# 9. 터미널
+# 12. 터미널
 
-## 9.1 toggleterm.nvim
+## 12.1 toggleterm.nvim
 
 Neovim 내에서 터미널을 편리하게 관리하는 플러그인
 
@@ -667,7 +822,7 @@ Neovim 내에서 터미널을 편리하게 관리하는 플러그인
 
 ---
 
-# 10. 요약 치트시트
+# 13. 요약 치트시트
 
 ```
 [생산성]
@@ -723,6 +878,21 @@ bufferline.nvim : <S-h>/<S-l> - 이전/다음 버퍼
                   <Space>bp   - 버퍼 고정 (Pin)
                   <Space>bo   - 다른 버퍼 닫기
                   <Space>b1~5 - 1~5번 버퍼 이동
+
+[코드 폴딩]
+nvim-ufo        : zR / zM     - 모든 폴드 열기/닫기
+                  zo / zc     - 현재 폴드 열기/닫기
+                  za          - 현재 폴드 토글
+                  zK          - 접힌 내용 미리보기
+
+[데이터베이스]
+vim-dadbod      : <Space>Db   - Database UI 토글
+                  <Space>Da   - 연결 추가
+                  S           - 쿼리 실행 (SQL 버퍼)
+
+[REST API]
+rest.nvim       : <Space>rr   - HTTP 요청 실행
+                  <Space>rl   - 마지막 요청 다시 실행
 
 [기타]
 markdown-preview: <Space>mp - 마크다운 브라우저 미리보기

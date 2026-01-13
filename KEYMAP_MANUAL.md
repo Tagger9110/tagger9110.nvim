@@ -944,7 +944,104 @@ Bufferline (<Space>b):
 
 ---
 
-# 22. `<Space>y` - Yank (클립보드 히스토리)
+# 22. 코드 폴딩 (z 접두사)
+
+| 키 | 설명 |
+|----|------|
+| `zR` | 모든 폴드 열기 |
+| `zM` | 모든 폴드 닫기 |
+| `zr` | 폴드 레벨 증가 (더 열기) |
+| `zm` | 폴드 레벨 감소 (더 닫기) |
+| `zo` | 현재 폴드 열기 |
+| `zc` | 현재 폴드 닫기 |
+| `za` | 현재 폴드 토글 |
+| `zK` | 접힌 내용 미리보기 |
+
+### 상세 설명
+
+nvim-ufo 플러그인이 Treesitter 기반으로 정확한 코드 블록을 인식합니다.
+```
+사용 예시:
+1. 긴 파일에서 zM으로 모든 함수/클래스 접기
+2. 관심 있는 함수에서 zo로 해당 함수만 열기
+3. zK로 접힌 함수 내용 미리보기 (팝업)
+4. zR로 모두 다시 열기
+
+접힌 상태 표시:
+public class UserService { ··· 25 lines ···
+```
+
+---
+
+# 23. `<Space>D` - Database
+
+| 키 | 설명 |
+|----|------|
+| `<Space>Db` | Database UI 열기/닫기 |
+| `<Space>Da` | DB 연결 추가 |
+| `<Space>Df` | DB 버퍼 찾기 |
+
+### 상세 설명
+
+#### Database UI
+```
+사용 예시:
+1. <Space>Db로 Database UI 열기
+2. 연결 추가: <Space>Da 또는 UI에서 추가
+3. 연결 문자열 입력:
+   - MySQL: mysql://user:pass@localhost:3306/dbname
+   - PostgreSQL: postgresql://user:pass@localhost:5432/dbname
+4. 테이블 선택 후 쿼리 작성
+5. S로 쿼리 실행
+```
+
+#### DBUI 내부 키맵
+```
+<CR>  : 연결/테이블 열기
+S     : 쿼리 실행 (SQL 버퍼에서)
+R     : 새로고침
+d     : 연결 삭제
+q     : DBUI 닫기
+```
+
+---
+
+# 24. REST API
+
+| 키 | 설명 |
+|----|------|
+| `<Space>rr` | 현재 HTTP 요청 실행 |
+| `<Space>rl` | 마지막 요청 다시 실행 |
+
+### 상세 설명
+
+`.http` 파일에서 HTTP 요청을 작성하고 실행합니다.
+```http
+### 요청 예시 (test.http 파일)
+GET http://localhost:8080/api/users
+Content-Type: application/json
+
+### POST 요청
+POST http://localhost:8080/api/users
+Content-Type: application/json
+
+{
+  "name": "Kim",
+  "email": "kim@example.com"
+}
+```
+
+```
+사용 예시:
+1. .http 파일 생성 (예: api.http)
+2. 요청 작성 후 커서를 해당 요청 위에 놓기
+3. <Space>rr로 요청 실행
+4. 결과가 우측 분할 창에 표시됨
+```
+
+---
+
+# 25. `<Space>y` - Yank (클립보드 히스토리)
 
 | 키 | 모드 | 설명 |
 |----|------|------|
@@ -989,7 +1086,7 @@ Bufferline (<Space>b):
 
 ---
 
-# 23. 요약 치트시트
+# 26. 요약 치트시트
 
 ```
 [검색 - 가장 많이 사용]
@@ -1048,6 +1145,20 @@ p / P          - 붙여넣기 (히스토리 연동)
 <Space>bp      - 버퍼 고정 (Pin)
 <Space>bo      - 다른 버퍼 닫기
 <Space>b1~5    - 1~5번 버퍼 이동
+
+[코드 폴딩]
+zR / zM        - 모든 폴드 열기/닫기
+zo / zc / za   - 현재 폴드 열기/닫기/토글
+zK             - 접힌 내용 미리보기
+
+[데이터베이스]
+<Space>Db      - Database UI 토글
+<Space>Da      - 연결 추가
+S              - 쿼리 실행 (SQL 버퍼)
+
+[REST API]
+<Space>rr      - HTTP 요청 실행
+<Space>rl      - 마지막 요청 다시 실행
 
 [기타]
 <Space>mp      - 마크다운 미리보기
