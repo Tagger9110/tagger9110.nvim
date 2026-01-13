@@ -325,6 +325,7 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = '[H]arpoon', icon = '󰛢', mode = { 'n', 'v' } },
         { '<leader>g', group = '[G]it', icon = '' },
+        { '<leader>x', group = '[X] Trouble', icon = '' },
       },
     },
   },
@@ -635,7 +636,7 @@ require('lazy').setup({
         -- Vue.js support (CSS/HTML + vtsls와 연동)
         vue_ls = {},
 
-        -- Java support
+        -- Java support (Lombok 설정은 vim.lsp.config에서 처리)
         jdtls = {},
 
         lua_ls = {
@@ -667,6 +668,14 @@ require('lazy').setup({
       --
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
+      -- jdtls에 Lombok 지원 추가 (mason-lspconfig 전에 설정해야 함)
+      vim.lsp.config('jdtls', {
+        cmd = {
+          'jdtls',
+          '--jvm-arg=-javaagent:/home/tbkim/programs/sts-5.0.1.RELEASE/lombok.jar',
+        },
+      })
+
       -- vtsls가 Vue 파일에서도 작동하도록 설정 (mason-lspconfig 전에 설정해야 함)
       vim.lsp.config('vtsls', {
         filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
@@ -1042,6 +1051,55 @@ require('lazy').setup({
         file_history_panel = { { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close Diffview' } } },
       },
     },
+  },
+
+  -- 코드 구조 플러그인
+  -- aerial.nvim: 코드 구조 사이드바 (함수, 클래스 목록)
+  {
+    'stevearc/aerial.nvim',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-tree/nvim-web-devicons',
+    },
+    keys = {
+      { '<leader>a', '<cmd>AerialToggle!<cr>', desc = '[A]erial (Code Outline)' },
+    },
+    opts = {
+      layout = {
+        min_width = 30,
+        default_direction = 'right',
+      },
+      attach_mode = 'global',
+      backends = { 'treesitter', 'lsp', 'markdown', 'man' },
+      show_guides = true,
+      filter_kind = false,
+      keymaps = {
+        ['q'] = 'actions.close',
+        ['<CR>'] = 'actions.jump',
+        ['<C-v>'] = 'actions.jump_vsplit',
+        ['<C-s>'] = 'actions.jump_split',
+        ['{'] = 'actions.prev',
+        ['}'] = 'actions.next',
+        ['[['] = 'actions.prev_up',
+        [']]'] = 'actions.next_up',
+      },
+    },
+  },
+
+  -- trouble.nvim: 에러/경고 목록을 보기 좋게 표시
+  {
+    'folke/trouble.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    cmd = { 'Trouble' },
+    keys = {
+      { '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', desc = 'Diagnostics (Trouble)' },
+      { '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', desc = 'Buffer Diagnostics' },
+      { '<leader>xs', '<cmd>Trouble symbols toggle focus=false<cr>', desc = 'Symbols (Trouble)' },
+      { '<leader>xl', '<cmd>Trouble lsp toggle focus=false win.position=right<cr>', desc = 'LSP Definitions/References' },
+      { '<leader>xL', '<cmd>Trouble loclist toggle<cr>', desc = 'Location List' },
+      { '<leader>xQ', '<cmd>Trouble qflist toggle<cr>', desc = 'Quickfix List' },
+    },
+    opts = {},
   },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
