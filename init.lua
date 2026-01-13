@@ -327,6 +327,7 @@ require('lazy').setup({
         { '<leader>g', group = '[G]it', icon = '' },
         { '<leader>x', group = '[X] Trouble', icon = '' },
         { '<leader>m', group = '[M]arkdown', icon = '' },
+        { '<leader>b', group = '[B]uffer', icon = '' },
       },
     },
   },
@@ -1303,6 +1304,112 @@ require('lazy').setup({
         on_put = true,
         on_yank = true,
         timer = 200,
+      },
+    },
+  },
+
+  -- 집중 모드 플러그인
+  -- zen-mode.nvim: 방해 요소 제거 집중 모드
+  {
+    'folke/zen-mode.nvim',
+    cmd = 'ZenMode',
+    keys = {
+      { '<leader>z', '<cmd>ZenMode<cr>', desc = '[Z]en Mode' },
+    },
+    opts = {
+      window = {
+        backdrop = 0.95,
+        width = 120,
+        height = 1,
+        options = {
+          signcolumn = 'no',
+          number = false,
+          relativenumber = false,
+          cursorline = false,
+          cursorcolumn = false,
+          foldcolumn = '0',
+          list = false,
+        },
+      },
+      plugins = {
+        options = {
+          enabled = true,
+          ruler = false,
+          showcmd = false,
+          laststatus = 0,
+        },
+        twilight = { enabled = true },
+        gitsigns = { enabled = false },
+        tmux = { enabled = false },
+      },
+    },
+  },
+
+  -- twilight.nvim: 편집 중인 코드 외 영역 어둡게
+  {
+    'folke/twilight.nvim',
+    cmd = { 'Twilight', 'TwilightEnable', 'TwilightDisable' },
+    keys = {
+      { '<leader>tw', '<cmd>Twilight<cr>', desc = '[T]oggle T[w]ilight' },
+    },
+    opts = {
+      dimming = {
+        alpha = 0.25,
+        color = { 'Normal', '#ffffff' },
+        term_bg = '#000000',
+        inactive = false,
+      },
+      context = 10,
+      treesitter = true,
+      expand = {
+        'function',
+        'method',
+        'table',
+        'if_statement',
+      },
+    },
+  },
+
+  -- bufferline.nvim: 상단에 버퍼 탭으로 표시
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    event = 'VeryLazy',
+    keys = {
+      { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
+      { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '<leader>bp', '<cmd>BufferLineTogglePin<cr>', desc = '[B]uffer [P]in' },
+      { '<leader>bP', '<cmd>BufferLineGroupClose ungrouped<cr>', desc = '[B]uffer Close Un[P]inned' },
+      { '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', desc = '[B]uffer Close [O]thers' },
+      { '<leader>br', '<cmd>BufferLineCloseRight<cr>', desc = '[B]uffer Close [R]ight' },
+      { '<leader>bl', '<cmd>BufferLineCloseLeft<cr>', desc = '[B]uffer Close [L]eft' },
+      { '<leader>1', '<cmd>BufferLineGoToBuffer 1<cr>', desc = 'Go to Buffer 1' },
+      { '<leader>2', '<cmd>BufferLineGoToBuffer 2<cr>', desc = 'Go to Buffer 2' },
+      { '<leader>3', '<cmd>BufferLineGoToBuffer 3<cr>', desc = 'Go to Buffer 3' },
+      { '<leader>4', '<cmd>BufferLineGoToBuffer 4<cr>', desc = 'Go to Buffer 4' },
+      { '<leader>5', '<cmd>BufferLineGoToBuffer 5<cr>', desc = 'Go to Buffer 5' },
+    },
+    opts = {
+      options = {
+        mode = 'buffers',
+        separator_style = 'thin',
+        show_buffer_close_icons = true,
+        show_close_icon = false,
+        color_icons = true,
+        diagnostics = 'nvim_lsp',
+        diagnostics_indicator = function(count, level)
+          local icon = level:match('error') and ' ' or ' '
+          return ' ' .. icon .. count
+        end,
+        offsets = {
+          {
+            filetype = 'neo-tree',
+            text = 'File Explorer',
+            highlight = 'Directory',
+            separator = true,
+          },
+        },
       },
     },
   },

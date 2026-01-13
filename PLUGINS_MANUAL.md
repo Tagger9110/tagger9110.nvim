@@ -384,9 +384,75 @@ Git diff를 보기 좋게 표시하는 플러그인
 
 ---
 
-# 5. UI 개선
+# 5. 집중 모드
 
-## 5.1 noice.nvim
+## 5.1 zen-mode.nvim
+
+화면에서 모든 방해 요소를 제거하고 코드에만 집중하는 모드
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<leader>z` | Zen Mode 토글 |
+
+### 특징
+
+```
+[일반 모드]                         [Zen 모드]
+┌────┬──────────────┬─────┐        ┌─────────────────────┐
+│트리│   코드       │Aerial│  →    │                     │
+├────┴──────────────┴─────┤        │      코드만         │
+│ 상태바                   │        │      중앙에         │
+└─────────────────────────┘        │                     │
+                                   └─────────────────────┘
+```
+
+- 파일 트리, 상태바, 라인 번호 등 모두 숨김
+- 코드가 화면 중앙 120 컬럼 너비로 배치
+- Twilight 자동 연동 (주변 코드 어둡게)
+
+---
+
+## 5.2 twilight.nvim
+
+현재 편집 중인 코드 외 영역을 어둡게 표시
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<leader>tw` | Twilight 토글 |
+
+### 특징
+
+```java
+// 어둡게 표시됨
+public void otherMethod() {
+    // ...
+}
+
+// 밝게 표시됨 (현재 편집 중)
+public void currentMethod() {
+    int x = 10;  ← 커서 위치
+    return x;
+}
+
+// 어둡게 표시됨
+public void anotherMethod() {
+    // ...
+}
+```
+
+- Treesitter 기반으로 코드 구조 인식
+- 함수, 메서드, if문 등 블록 단위로 구분
+- Zen Mode에서 자동 활성화
+
+---
+
+# 6. UI 개선
+
+## 6.1 noice.nvim
 
 명령줄, 메시지, 알림 UI를 개선하는 플러그인
 
@@ -402,7 +468,7 @@ Git diff를 보기 좋게 표시하는 플러그인
 
 ---
 
-## 5.2 nvim-colorizer
+## 6.2 nvim-colorizer
 
 CSS 색상 코드를 실제 색상으로 미리보기
 
@@ -420,7 +486,7 @@ CSS, SCSS, HTML, JavaScript, Vue, TypeScript
 
 ---
 
-## 5.3 dressing.nvim
+## 6.3 dressing.nvim
 
 input, select UI를 Telescope 스타일로 개선
 
@@ -433,9 +499,61 @@ input, select UI를 Telescope 스타일로 개선
 
 ---
 
-# 6. 기타
+# 7. 버퍼 관리
 
-## 6.1 markdown-preview.nvim
+## 7.1 bufferline.nvim
+
+열린 파일들을 상단에 탭처럼 표시
+
+### 화면
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 🗎 init.lua │ 🗎 UserService.java │ ● api.ts │ 🗎 README.md  │ ← 버퍼라인
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│                    현재 편집 중인 파일                       │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 키맵
+
+| 키 | 설명 |
+|----|------|
+| `<S-h>` | 이전 버퍼 |
+| `<S-l>` | 다음 버퍼 |
+| `<leader>bp` | 버퍼 고정 (Pin) |
+| `<leader>bP` | 고정 안된 버퍼 모두 닫기 |
+| `<leader>bo` | 다른 버퍼 모두 닫기 |
+| `<leader>br` | 오른쪽 버퍼 모두 닫기 |
+| `<leader>bl` | 왼쪽 버퍼 모두 닫기 |
+| `<leader>1~5` | 1~5번 버퍼로 이동 |
+
+### 특징
+
+- 파일 타입별 아이콘 표시
+- 수정됨 표시 (●)
+- LSP 진단 에러/경고 수 표시
+- Neo-tree와 연동 (탐색기 영역 표시)
+
+### Harpoon과의 차이
+
+```
+Harpoon:
+- 자주 쓰는 파일 4개 정도 등록
+- 프로젝트별 고정 파일 세트
+
+Bufferline:
+- 현재 열린 모든 파일 표시
+- 시각적으로 어떤 파일이 열렸는지 확인
+```
+
+---
+
+# 8. 기타
+
+## 8.1 markdown-preview.nvim
 
 마크다운 파일을 브라우저에서 실시간 미리보기
 
@@ -457,7 +575,7 @@ input, select UI를 Telescope 스타일로 개선
 
 ---
 
-## 6.2 neoscroll.nvim
+## 8.2 neoscroll.nvim
 
 부드러운 스크롤 애니메이션
 
@@ -477,9 +595,9 @@ input, select UI를 Telescope 스타일로 개선
 
 ---
 
-# 7. 터미널
+# 9. 터미널
 
-## 7.1 toggleterm.nvim
+## 9.1 toggleterm.nvim
 
 Neovim 내에서 터미널을 편리하게 관리하는 플러그인
 
@@ -548,7 +666,7 @@ Neovim 내에서 터미널을 편리하게 관리하는 플러그인
 
 ---
 
-# 8. 요약 치트시트
+# 10. 요약 치트시트
 
 ```
 [생산성]
@@ -589,10 +707,20 @@ yanky.nvim     : p / P      - 붙여넣기 (히스토리 연동)
                  <C-p>/<C-n> - 이전/다음 yank로 변경
                  <Space>y   - Yank 히스토리 열기
 
+[집중 모드]
+zen-mode.nvim  : <Space>z   - Zen Mode 토글 (방해 요소 제거)
+twilight.nvim  : <Space>tw  - Twilight 토글 (주변 코드 어둡게)
+
 [UI 개선]
 noice.nvim     : 자동 - 명령줄/메시지 UI 개선
 nvim-colorizer : 자동 - CSS 색상 미리보기
 dressing.nvim  : 자동 - input/select UI 개선
+
+[버퍼 관리]
+bufferline.nvim : <S-h>/<S-l> - 이전/다음 버퍼
+                  <Space>bp   - 버퍼 고정 (Pin)
+                  <Space>bo   - 다른 버퍼 닫기
+                  <Space>1~5  - 1~5번 버퍼 이동
 
 [기타]
 markdown-preview: <Space>mp - 마크다운 브라우저 미리보기
