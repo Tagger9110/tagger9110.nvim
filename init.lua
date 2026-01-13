@@ -1281,6 +1281,32 @@ require('lazy').setup({
     },
   },
 
+  -- yanky.nvim: Yank 기록 관리
+  {
+    'gbprod/yanky.nvim',
+    dependencies = { 'kkharji/sqlite.lua' },
+    event = { 'BufReadPost', 'BufNewFile' },
+    keys = {
+      { 'p', '<Plug>(YankyPutAfter)', mode = { 'n', 'x' }, desc = 'Put after' },
+      { 'P', '<Plug>(YankyPutBefore)', mode = { 'n', 'x' }, desc = 'Put before' },
+      { '<C-p>', '<Plug>(YankyPreviousEntry)', desc = 'Previous yank' },
+      { '<C-n>', '<Plug>(YankyNextEntry)', desc = 'Next yank' },
+      { '<leader>y', '<cmd>YankyRingHistory<cr>', desc = '[Y]ank history' },
+    },
+    opts = {
+      ring = {
+        history_length = 100,
+        storage = 'sqlite',
+        sync_with_numbered_registers = true,
+      },
+      highlight = {
+        on_put = true,
+        on_yank = true,
+        timer = 200,
+      },
+    },
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
