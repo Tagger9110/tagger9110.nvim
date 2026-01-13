@@ -324,6 +324,7 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = '[H]arpoon', icon = '󰛢', mode = { 'n', 'v' } },
+        { '<leader>g', group = '[G]it', icon = '' },
       },
     },
   },
@@ -970,7 +971,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- 생산성 향상 플러그인
   -- nvim-ts-autotag: HTML/Vue 태그 자동 닫기
@@ -1010,6 +1011,37 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>h3', function() harpoon:list():select(3) end, { desc = 'File 3' })
       vim.keymap.set('n', '<leader>h4', function() harpoon:list():select(4) end, { desc = 'File 4' })
     end,
+  },
+
+  -- Git 플러그인
+  -- lazygit.nvim: neovim 안에서 lazygit 실행
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = { 'LazyGit', 'LazyGitConfig', 'LazyGitCurrentFile', 'LazyGitFilter', 'LazyGitFilterCurrentFile' },
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { '<leader>gg', '<cmd>LazyGit<cr>', desc = 'LazyGit' },
+      { '<leader>gf', '<cmd>LazyGitCurrentFile<cr>', desc = 'LazyGit Current File' },
+    },
+  },
+
+  -- diffview.nvim: Git diff 보기
+  {
+    'sindrets/diffview.nvim',
+    cmd = { 'DiffviewOpen', 'DiffviewClose', 'DiffviewToggleFiles', 'DiffviewFocusFiles', 'DiffviewFileHistory' },
+    keys = {
+      { '<leader>gd', '<cmd>DiffviewOpen<cr>', desc = 'Diffview Open' },
+      { '<leader>gh', '<cmd>DiffviewFileHistory %<cr>', desc = 'File History' },
+      { '<leader>gH', '<cmd>DiffviewFileHistory<cr>', desc = 'Branch History' },
+      { '<leader>gc', '<cmd>DiffviewClose<cr>', desc = 'Diffview Close' },
+    },
+    opts = {
+      keymaps = {
+        view = { { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close Diffview' } } },
+        file_panel = { { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close Diffview' } } },
+        file_history_panel = { { 'n', 'q', '<cmd>DiffviewClose<cr>', { desc = 'Close Diffview' } } },
+      },
+    },
   },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
