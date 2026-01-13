@@ -1102,6 +1102,38 @@ require('lazy').setup({
     opts = {},
   },
 
+  -- 편의 기능 플러그인
+  -- todo-comments.nvim: TODO, FIXME 등 하이라이트
+  {
+    'folke/todo-comments.nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    keys = {
+      { ']t', function() require('todo-comments').jump_next() end, desc = 'Next TODO' },
+      { '[t', function() require('todo-comments').jump_prev() end, desc = 'Previous TODO' },
+      { '<leader>st', '<cmd>TodoTelescope<cr>', desc = '[S]earch [T]ODO' },
+    },
+    opts = {
+      signs = true,
+      keywords = {
+        FIX = { icon = ' ', color = 'error', alt = { 'FIXME', 'BUG', 'FIXIT', 'ISSUE' } },
+        TODO = { icon = ' ', color = 'info' },
+        HACK = { icon = ' ', color = 'warning' },
+        WARN = { icon = ' ', color = 'warning', alt = { 'WARNING', 'XXX' } },
+        PERF = { icon = ' ', alt = { 'OPTIM', 'PERFORMANCE', 'OPTIMIZE' } },
+        NOTE = { icon = ' ', color = 'hint', alt = { 'INFO' } },
+      },
+    },
+  },
+
+  -- nvim-surround: 텍스트를 괄호/따옴표로 감싸기
+  {
+    'kylechui/nvim-surround',
+    version = '*',
+    event = 'VeryLazy',
+    opts = {},
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
