@@ -1134,6 +1134,103 @@ require('lazy').setup({
     opts = {},
   },
 
+  -- UI 개선 플러그인
+  -- noice.nvim: 명령줄, 메시지, 알림 UI 개선
+  {
+    'folke/noice.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
+    opts = {
+      lsp = {
+        override = {
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true,
+        },
+      },
+      presets = {
+        bottom_search = true,         -- 검색창 하단 표시
+        command_palette = true,       -- 명령어 팔레트 스타일
+        long_message_to_split = true, -- 긴 메시지 분할 표시
+        inc_rename = false,
+        lsp_doc_border = true,        -- LSP 문서 테두리
+      },
+    },
+  },
+
+  -- nvim-colorizer: CSS 색상 코드 미리보기
+  {
+    'norcalli/nvim-colorizer.lua',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = function()
+      require('colorizer').setup({
+        'css',
+        'scss',
+        'html',
+        'javascript',
+        'vue',
+        'typescript',
+      }, {
+        RGB = true,
+        RRGGBB = true,
+        names = false,
+        RRGGBBAA = true,
+        rgb_fn = true,
+        hsl_fn = true,
+        css = true,
+        css_fn = true,
+      })
+    end,
+  },
+
+  -- dressing.nvim: input, select UI 개선
+  {
+    'stevearc/dressing.nvim',
+    event = 'VeryLazy',
+    opts = {
+      input = {
+        enabled = true,
+        default_prompt = '> ',
+        border = 'rounded',
+      },
+      select = {
+        enabled = true,
+        backend = { 'telescope', 'builtin' },
+      },
+    },
+  },
+
+  -- 기타 플러그인
+  -- markdown-preview.nvim: 마크다운 브라우저 미리보기
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    ft = { 'markdown' },
+    build = 'cd app && npm install',
+    keys = {
+      { '<leader>mp', '<cmd>MarkdownPreviewToggle<cr>', desc = '[M]arkdown [P]review' },
+    },
+  },
+
+  -- neoscroll.nvim: 부드러운 스크롤
+  {
+    'karb94/neoscroll.nvim',
+    event = 'VeryLazy',
+    opts = {
+      mappings = { '<C-u>', '<C-d>', '<C-b>', '<C-f>', 'zt', 'zz', 'zb' },
+      hide_cursor = true,
+      stop_eof = true,
+      respect_scrolloff = false,
+      cursor_scrolls_alone = true,
+      easing_function = 'sine',
+      pre_hook = nil,
+      post_hook = nil,
+    },
+  },
+
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
   --
