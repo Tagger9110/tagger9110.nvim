@@ -326,6 +326,7 @@ require('lazy').setup({
         { '<leader>h', group = '[H]arpoon', icon = '󰛢', mode = { 'n', 'v' } },
         { '<leader>g', group = '[G]it', icon = '' },
         { '<leader>x', group = '[X] Trouble', icon = '' },
+        { '<leader>m', group = '[M]arkdown', icon = '' },
       },
     },
   },
@@ -1228,6 +1229,55 @@ require('lazy').setup({
       easing_function = 'sine',
       pre_hook = nil,
       post_hook = nil,
+    },
+  },
+
+  -- toggleterm.nvim: 터미널 관리
+  {
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    keys = {
+      { '<C-\\>', '<cmd>ToggleTerm<cr>', desc = 'Toggle Terminal' },
+      { '<leader>tf', '<cmd>ToggleTerm direction=float<cr>', desc = '[T]erminal [F]loat' },
+      { '<leader>t-', '<cmd>ToggleTerm direction=horizontal size=15<cr>', desc = '[T]erminal Horizontal (-)' },
+      { '<leader>tv', '<cmd>ToggleTerm direction=vertical size=80<cr>', desc = '[T]erminal [V]ertical' },
+      { '<leader>tg', function()
+          local Terminal = require('toggleterm.terminal').Terminal
+          local lazygit = Terminal:new({
+            cmd = 'lazygit',
+            dir = 'git_dir',
+            direction = 'float',
+            float_opts = { border = 'curved' },
+            on_open = function(term)
+              vim.cmd('startinsert!')
+            end,
+          })
+          lazygit:toggle()
+        end, desc = '[T]erminal lazy[G]it' },
+    },
+    opts = {
+      size = function(term)
+        if term.direction == 'horizontal' then
+          return 15
+        elseif term.direction == 'vertical' then
+          return vim.o.columns * 0.4
+        end
+      end,
+      open_mapping = [[<C-\>]],
+      hide_numbers = true,
+      shade_terminals = true,
+      shading_factor = 2,
+      start_in_insert = true,
+      insert_mappings = true,
+      terminal_mappings = true,
+      persist_size = true,
+      direction = 'float',
+      close_on_exit = true,
+      shell = vim.o.shell,
+      float_opts = {
+        border = 'curved',
+        winblend = 0,
+      },
     },
   },
 
