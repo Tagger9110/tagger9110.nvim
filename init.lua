@@ -323,7 +323,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>h', group = '[H]arpoon', icon = '󰛢', mode = { 'n', 'v' } },
       },
     },
   },
@@ -968,9 +968,49 @@ require('lazy').setup({
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
+  require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+
+  -- 생산성 향상 플러그인
+  -- nvim-ts-autotag: HTML/Vue 태그 자동 닫기
+  {
+    'windwp/nvim-ts-autotag',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
+  },
+
+  -- flash.nvim: 화면 내 빠른 이동
+  {
+    'folke/flash.nvim',
+    event = 'VeryLazy',
+    opts = {},
+    keys = {
+      { 's', mode = { 'n', 'x', 'o' }, function() require('flash').jump() end, desc = 'Flash' },
+      { 'S', mode = { 'n', 'x', 'o' }, function() require('flash').treesitter() end, desc = 'Flash Treesitter' },
+      { 'r', mode = 'o', function() require('flash').remote() end, desc = 'Remote Flash' },
+      { 'R', mode = { 'o', 'x' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
+    },
+  },
+
+  -- harpoon: 자주 쓰는 파일 즐겨찾기
+  {
+    'ThePrimeagen/harpoon',
+    branch = 'harpoon2',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local harpoon = require 'harpoon'
+      harpoon:setup()
+
+      vim.keymap.set('n', '<leader>ha', function() harpoon:list():add() end, { desc = 'Add file' })
+      vim.keymap.set('n', '<leader>hm', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'Menu' })
+
+      vim.keymap.set('n', '<leader>h1', function() harpoon:list():select(1) end, { desc = 'File 1' })
+      vim.keymap.set('n', '<leader>h2', function() harpoon:list():select(2) end, { desc = 'File 2' })
+      vim.keymap.set('n', '<leader>h3', function() harpoon:list():select(3) end, { desc = 'File 3' })
+      vim.keymap.set('n', '<leader>h4', function() harpoon:list():select(4) end, { desc = 'File 4' })
+    end,
+  },
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
