@@ -329,6 +329,7 @@ require('lazy').setup({
         { '<leader>m', group = '[M]arkdown', icon = '' },
         { '<leader>b', group = '[B]uffer', icon = '' },
         { '<leader>D', group = '[D]atabase', icon = '' },
+        { '<leader>R', group = '[R]EST API', icon = '' },
       },
     },
   },
@@ -1512,8 +1513,8 @@ require('lazy').setup({
     'rest-nvim/rest.nvim',
     ft = 'http',
     keys = {
-      { '<leader>rr', '<cmd>Rest run<cr>', desc = '[R]EST [R]un request' },
-      { '<leader>rl', '<cmd>Rest run last<cr>', desc = '[R]EST Run [L]ast' },
+      { '<leader>Rr', '<cmd>Rest run<cr>', desc = '[R]EST [R]un request' },
+      { '<leader>Rl', '<cmd>Rest run last<cr>', desc = '[R]EST Run [L]ast' },
     },
     config = function()
       require('rest-nvim').setup({

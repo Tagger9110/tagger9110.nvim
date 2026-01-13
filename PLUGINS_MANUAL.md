@@ -659,8 +659,8 @@ Neovim 내에서 HTTP 요청 보내기 (Postman 대체)
 
 | 키 | 설명 |
 |----|------|
-| `<leader>rr` | 현재 요청 실행 |
-| `<leader>rl` | 마지막 요청 다시 실행 |
+| `<leader>Rr` | 현재 요청 실행 |
+| `<leader>Rl` | 마지막 요청 다시 실행 |
 
 ### 사용법
 
@@ -891,8 +891,8 @@ vim-dadbod      : <Space>Db   - Database UI 토글
                   S           - 쿼리 실행 (SQL 버퍼)
 
 [REST API]
-rest.nvim       : <Space>rr   - HTTP 요청 실행
-                  <Space>rl   - 마지막 요청 다시 실행
+rest.nvim       : <Space>Rr   - HTTP 요청 실행
+                  <Space>Rl   - 마지막 요청 다시 실행
 
 [기타]
 markdown-preview: <Space>mp - 마크다운 브라우저 미리보기

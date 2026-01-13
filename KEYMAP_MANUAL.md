@@ -1007,12 +1007,12 @@ q     : DBUI 닫기
 
 ---
 
-# 24. REST API
+# 24. `<Space>R` - REST API
 
 | 키 | 설명 |
 |----|------|
-| `<Space>rr` | 현재 HTTP 요청 실행 |
-| `<Space>rl` | 마지막 요청 다시 실행 |
+| `<Space>Rr` | 현재 HTTP 요청 실행 |
+| `<Space>Rl` | 마지막 요청 다시 실행 |
 
 ### 상세 설명
 
@@ -1036,7 +1036,7 @@ Content-Type: application/json
 사용 예시:
 1. .http 파일 생성 (예: api.http)
 2. 요청 작성 후 커서를 해당 요청 위에 놓기
-3. <Space>rr로 요청 실행
+3. <Space>Rr로 요청 실행
 4. 결과가 우측 분할 창에 표시됨
 ```
 
@@ -1158,8 +1158,8 @@ zK             - 접힌 내용 미리보기
 S              - 쿼리 실행 (SQL 버퍼)
 
 [REST API]
-<Space>rr      - HTTP 요청 실행
-<Space>rl      - 마지막 요청 다시 실행
+<Space>Rr      - HTTP 요청 실행
+<Space>Rl      - 마지막 요청 다시 실행
 
 [기타]
 <Space>mp      - 마크다운 미리보기
