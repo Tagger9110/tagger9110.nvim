@@ -1379,16 +1379,17 @@ require('lazy').setup({
     keys = {
       { '<S-h>', '<cmd>BufferLineCyclePrev<cr>', desc = 'Prev Buffer' },
       { '<S-l>', '<cmd>BufferLineCycleNext<cr>', desc = 'Next Buffer' },
+      { '<leader>bd', '<cmd>bdelete<cr>', desc = '[B]uffer [D]elete (Close)' },
       { '<leader>bp', '<cmd>BufferLineTogglePin<cr>', desc = '[B]uffer [P]in' },
       { '<leader>bP', '<cmd>BufferLineGroupClose ungrouped<cr>', desc = '[B]uffer Close Un[P]inned' },
       { '<leader>bo', '<cmd>BufferLineCloseOthers<cr>', desc = '[B]uffer Close [O]thers' },
       { '<leader>br', '<cmd>BufferLineCloseRight<cr>', desc = '[B]uffer Close [R]ight' },
       { '<leader>bl', '<cmd>BufferLineCloseLeft<cr>', desc = '[B]uffer Close [L]eft' },
-      { '<leader>1', '<cmd>BufferLineGoToBuffer 1<cr>', desc = 'Go to Buffer 1' },
-      { '<leader>2', '<cmd>BufferLineGoToBuffer 2<cr>', desc = 'Go to Buffer 2' },
-      { '<leader>3', '<cmd>BufferLineGoToBuffer 3<cr>', desc = 'Go to Buffer 3' },
-      { '<leader>4', '<cmd>BufferLineGoToBuffer 4<cr>', desc = 'Go to Buffer 4' },
-      { '<leader>5', '<cmd>BufferLineGoToBuffer 5<cr>', desc = 'Go to Buffer 5' },
+      { '<leader>b1', '<cmd>BufferLineGoToBuffer 1<cr>', desc = '[B]uffer 1' },
+      { '<leader>b2', '<cmd>BufferLineGoToBuffer 2<cr>', desc = '[B]uffer 2' },
+      { '<leader>b3', '<cmd>BufferLineGoToBuffer 3<cr>', desc = '[B]uffer 3' },
+      { '<leader>b4', '<cmd>BufferLineGoToBuffer 4<cr>', desc = '[B]uffer 4' },
+      { '<leader>b5', '<cmd>BufferLineGoToBuffer 5<cr>', desc = '[B]uffer 5' },
     },
     opts = {
       options = {

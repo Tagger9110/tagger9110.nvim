@@ -523,12 +523,13 @@ input, select UI를 Telescope 스타일로 개선
 |----|------|
 | `<S-h>` | 이전 버퍼 |
 | `<S-l>` | 다음 버퍼 |
+| `<leader>bd` | 현재 버퍼 닫기 |
 | `<leader>bp` | 버퍼 고정 (Pin) |
 | `<leader>bP` | 고정 안된 버퍼 모두 닫기 |
 | `<leader>bo` | 다른 버퍼 모두 닫기 |
 | `<leader>br` | 오른쪽 버퍼 모두 닫기 |
 | `<leader>bl` | 왼쪽 버퍼 모두 닫기 |
-| `<leader>1~5` | 1~5번 버퍼로 이동 |
+| `<leader>b1~5` | 1~5번 버퍼로 이동 |
 
 ### 특징
 
@@ -718,9 +719,10 @@ dressing.nvim  : 자동 - input/select UI 개선
 
 [버퍼 관리]
 bufferline.nvim : <S-h>/<S-l> - 이전/다음 버퍼
+                  <Space>bd   - 현재 버퍼 닫기
                   <Space>bp   - 버퍼 고정 (Pin)
                   <Space>bo   - 다른 버퍼 닫기
-                  <Space>1~5  - 1~5번 버퍼 이동
+                  <Space>b1~5 - 1~5번 버퍼 이동
 
 [기타]
 markdown-preview: <Space>mp - 마크다운 브라우저 미리보기
