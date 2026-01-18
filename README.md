@@ -236,3 +236,30 @@ sudo pacman -S --noconfirm --needed gcc make git ripgrep fd unzip neovim
 ```
 </details>
 
+---
+
+## 커스텀 설정
+
+### 환경변수
+
+#### LOMBOK_JAR (Java 개발 시 필수)
+
+jdtls (Java Language Server)에서 Lombok을 사용하려면 `LOMBOK_JAR` 환경변수를 설정해야 합니다.
+
+```bash
+# ~/.zshrc 또는 ~/.bashrc에 추가
+export LOMBOK_JAR="/path/to/lombok.jar"
+```
+
+**예시:**
+```bash
+# PC별 경로가 다를 수 있음
+export LOMBOK_JAR="$HOME/MyPrograms/sts-5.0.1.RELEASE/lombok.jar"
+```
+
+**환경변수 미설정 시:** 기본값으로 `$HOME/MyPrograms/sts-5.0.1.RELEASE/lombok.jar` 사용
+
+**Lombok 다운로드:**
+- https://projectlombok.org/download
+- 또는 Spring Tool Suite 설치 시 포함됨
+

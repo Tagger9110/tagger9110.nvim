@@ -673,10 +673,12 @@ require('lazy').setup({
       -- You can add other tools here that you want Mason to install
       -- for you, so that they are available from within Neovim.
       -- jdtls에 Lombok 지원 추가 (mason-lspconfig 전에 설정해야 함)
+      -- LOMBOK_JAR 환경변수 사용, 미설정 시 기본 경로 사용
+      local lombok_jar = os.getenv('LOMBOK_JAR') or (os.getenv('HOME') .. '/MyPrograms/sts-5.0.1.RELEASE/lombok.jar')
       vim.lsp.config('jdtls', {
         cmd = {
           'jdtls',
-          '--jvm-arg=-javaagent:/home/tbkim/programs/sts-5.0.1.RELEASE/lombok.jar',
+          '--jvm-arg=-javaagent:' .. lombok_jar,
         },
       })
 
@@ -1509,8 +1511,10 @@ require('lazy').setup({
   },
 
   -- rest.nvim: REST API 클라이언트
+  -- NOTE: 설치 문제 시 enabled = false 주석 해제
   {
     'rest-nvim/rest.nvim',
+    -- enabled = false,
     ft = 'http',
     keys = {
       { '<leader>Rr', '<cmd>Rest run<cr>', desc = '[R]EST [R]un request' },
@@ -1547,6 +1551,9 @@ require('lazy').setup({
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
 }, {
+  rocks = {
+    hererocks = true, -- Lua 5.1 자동 설치 (rest.nvim 등에 필요)
+  },
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
     -- default lazy.nvim defined Nerd Font icons, otherwise define a unicode icons table
