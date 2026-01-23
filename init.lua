@@ -765,7 +765,37 @@ require('lazy').setup({
         -- python = { "isort", "black" },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        -- javascript = { "prettierd", "prettier", stop_after_first = true },
+        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        typescript = { 'prettierd', 'prettier', stop_after_first = true },
+        vue = { 'prettierd', 'prettier', stop_after_first = true },
+        html = { 'prettierd', 'prettier', stop_after_first = true },
+        css = { 'prettierd', 'prettier', stop_after_first = true },
+        json = { 'prettierd', 'prettier', stop_after_first = true },
+      },
+      -- Prettier 옵션 설정 (회사 표준)
+      formatters = {
+        prettier = {
+          prepend_args = {
+            '--semi', 'true',
+            '--single-quote', 'false',
+            '--tab-width', '2',
+            '--use-tabs', 'false',
+            '--trailing-comma', 'all',
+            '--print-width', '120',
+            '--vue-indent-script-and-style', 'false',
+          },
+        },
+        prettierd = {
+          prepend_args = {
+            '--semi', 'true',
+            '--single-quote', 'false',
+            '--tab-width', '2',
+            '--use-tabs', 'false',
+            '--trailing-comma', 'all',
+            '--print-width', '120',
+            '--vue-indent-script-and-style', 'false',
+          },
+        },
       },
     },
   },
