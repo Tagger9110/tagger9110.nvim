@@ -232,6 +232,85 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   'github/copilot.vim',
   'christoomey/vim-tmux-navigator',
+
+  -- Alpha-nvim: 시작 화면 (dashboard)
+  {
+    'goolord/alpha-nvim',
+    event = 'VimEnter',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      local alpha = require('alpha')
+      local dashboard = require('alpha.themes.dashboard')
+
+      -- 그라데이션 색상 정의 (파랑 → 보라 → 분홍)
+      vim.api.nvim_set_hl(0, 'AlphaGradient1', { fg = '#6366f1' })
+      vim.api.nvim_set_hl(0, 'AlphaGradient2', { fg = '#818cf8' })
+      vim.api.nvim_set_hl(0, 'AlphaGradient3', { fg = '#a78bfa' })
+      vim.api.nvim_set_hl(0, 'AlphaGradient4', { fg = '#c084fc' })
+      vim.api.nvim_set_hl(0, 'AlphaGradient5', { fg = '#e879f9' })
+      vim.api.nvim_set_hl(0, 'AlphaGradient6', { fg = '#f472b6' })
+
+      -- 헤더 (ASCII 아트)
+      dashboard.section.header.val = {
+        [[                                                            ]],
+        [[ ████████╗ █████╗  ██████╗  ██████╗ ███████╗██████╗         ]],
+        [[ ╚══██╔══╝██╔══██╗██╔════╝ ██╔════╝ ██╔════╝██╔══██╗        ]],
+        [[    ██║   ███████║██║  ███╗██║  ███╗█████╗  ██████╔╝        ]],
+        [[    ██║   ██╔══██║██║   ██║██║   ██║██╔══╝  ██╔══██╗        ]],
+        [[    ██║   ██║  ██║╚██████╔╝╚██████╔╝███████╗██║  ██║        ]],
+        [[    ╚═╝   ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚══════╝╚═╝  ╚═╝        ]],
+        [[                ██╗   ██╗██╗███╗   ███╗                     ]],
+        [[                ██║   ██║██║████╗ ████║                     ]],
+        [[                ██║   ██║██║██╔████╔██║                     ]],
+        [[                ╚██╗ ██╔╝██║██║╚██╔╝██║                     ]],
+        [[                 ╚████╔╝ ██║██║ ╚═╝ ██║                     ]],
+        [[                  ╚═══╝  ╚═╝╚═╝     ╚═╝                     ]],
+        [[                                                            ]],
+      }
+
+      -- 헤더에 그라데이션 적용
+      dashboard.section.header.opts.hl = {
+        { { 'AlphaGradient1', 0, -1 } },
+        { { 'AlphaGradient1', 0, -1 } },
+        { { 'AlphaGradient1', 0, -1 } },
+        { { 'AlphaGradient2', 0, -1 } },
+        { { 'AlphaGradient2', 0, -1 } },
+        { { 'AlphaGradient3', 0, -1 } },
+        { { 'AlphaGradient3', 0, -1 } },
+        { { 'AlphaGradient4', 0, -1 } },
+        { { 'AlphaGradient4', 0, -1 } },
+        { { 'AlphaGradient5', 0, -1 } },
+        { { 'AlphaGradient5', 0, -1 } },
+        { { 'AlphaGradient6', 0, -1 } },
+        { { 'AlphaGradient6', 0, -1 } },
+        { { 'AlphaGradient6', 0, -1 } },
+      }
+
+      -- 버튼 메뉴
+      dashboard.section.buttons.val = {
+        dashboard.button('f', '󰈞  Find file', ':Telescope find_files<CR>'),
+        dashboard.button('r', '󰷊  Recent files', ':Telescope oldfiles<CR>'),
+        dashboard.button('g', '󰊄  Find text', ':Telescope live_grep<CR>'),
+        dashboard.button('n', '󰝒  New file', ':ene<CR>'),
+        dashboard.button('c', '󰒓  Config', ':e $MYVIMRC<CR>'),
+        dashboard.button('l', '󰒲  Lazy', ':Lazy<CR>'),
+        dashboard.button('q', '󰩈  Quit', ':qa<CR>'),
+      }
+
+      -- 푸터
+      dashboard.section.footer.val = function()
+        local stats = require('lazy').stats()
+        return '⚡ ' .. stats.loaded .. '/' .. stats.count .. ' plugins loaded'
+      end
+
+      -- 레이아웃 설정
+      dashboard.section.buttons.opts.hl = 'AlphaButtons'
+      dashboard.section.footer.opts.hl = 'Comment'
+
+      alpha.setup(dashboard.config)
+    end,
+  },
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
